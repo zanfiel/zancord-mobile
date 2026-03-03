@@ -1,4 +1,4 @@
-declare module "bunny-build-info" {
+declare module "zancord-build-info" {
     const version: string;
 }
 

@@ -6,7 +6,7 @@ import { findAssetId } from "@lib/api/assets";
 import { connectToDebugger, connectToReactDevTools } from "@lib/api/debug";
 import { disconnectDt, useIsDtConnected } from "@lib/api/debug/devtools";
 import { disconnectRdt, useIsRdtConnected } from "@lib/api/debug/react";
-import { getReactDevToolsVersion, isLoaderConfigSupported, isReactDevToolsPreloaded, isVendettaLoader } from "@lib/api/native/loader";
+import { getReactDevToolsVersion, isLoaderConfigSupported, isReactDevToolsPreloaded, isZancordLoader } from "@lib/api/native/loader";
 import { loaderConfig, settings } from "@lib/api/settings";
 import { showToast } from "@lib/ui/toasts";
 import { lazyDestructure } from "@lib/utils/lazy";
@@ -98,10 +98,10 @@ export default function Developer() {
                                 defaultValue={loaderConfig.customLoadUrl.url}
                                 size="md"
                                 onChange={(v: string) => loaderConfig.customLoadUrl.url = v}
-                                placeholder="http://localhost:4040/revenge.js"
-                                label={Strings.BUNNY_URL}
+                                placeholder="http://localhost:4040/zancord.js"
+                                label={Strings.ZANCORD_URL}
                             />} />}
-                            {isReactDevToolsPreloaded() && isVendettaLoader() && <TableSwitchRow
+                            {isReactDevToolsPreloaded() && isZancordLoader() && <TableSwitchRow
                                 label={Strings.LOAD_REACT_DEVTOOLS}
                                 subLabel={`${Strings.VERSION}: ${getReactDevToolsVersion()}`}
                                 icon={<TableRow.Icon source={findAssetId("StaffBadgeIcon")} />}
@@ -118,7 +118,7 @@ export default function Developer() {
                             subLabel={Strings.CLEAR_BUNDLE_DESC}
                             icon={<TableRow.Icon source={findAssetId("TrashIcon")} variant="danger" />}
                             onPress={() => {
-                                openAlert("revenge-clear-bundle-reload-confirmation", <AlertModal
+                                openAlert("zancord-clear-bundle-reload-confirmation", <AlertModal
                                     title={Strings.MODAL_RELOAD_REQUIRED}
                                     content={Strings.MODAL_RELOAD_REQUIRED_DESC}
                                     actions={
@@ -136,7 +136,7 @@ export default function Developer() {
                             label={Strings.ASSET_BROWSER}
                             icon={<TableRow.Icon source={findAssetId("ImageIcon")} />}
                             trailing={TableRow.Arrow}
-                            onPress={() => navigation.push("BUNNY_CUSTOM_PAGE", {
+                            onPress={() => navigation.push("ZANCORD_CUSTOM_PAGE", {
                                 title: Strings.ASSET_BROWSER,
                                 render: AssetBrowser,
                             })}
@@ -155,8 +155,8 @@ export default function Developer() {
                                 options: [
                                     // @ts-expect-error
                                     // Of course, to trigger an error, we need to do something incorrectly. The below will do!
-                                    { label: Strings.BUNNY, onPress: () => navigation.push("BUNNY_CUSTOM_PAGE", { render: () => <undefined /> }) },
-                                    { label: "Discord", isDestructive: true, onPress: () => navigation.push("BUNNY_CUSTOM_PAGE", { noErrorBoundary: true }) },
+                                    { label: Strings.ZANCORD, onPress: () => navigation.push("ZANCORD_CUSTOM_PAGE", { render: () => <undefined /> }) },
+                                    { label: "Discord", isDestructive: true, onPress: () => navigation.push("ZANCORD_CUSTOM_PAGE", { noErrorBoundary: true }) },
                                 ],
                             })}
                         />

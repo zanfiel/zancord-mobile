@@ -9,7 +9,7 @@ import { findAssetId } from "@lib/api/assets";
 import { settings } from "@lib/api/settings";
 import { useObservable } from "@lib/api/storage";
 import { showToast } from "@lib/ui/toasts";
-import { BUNNY_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
+import { ZANCORD_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
 import { lazyDestructure } from "@lib/utils/lazy";
 import { findByProps } from "@metro";
 import { NavigationNative } from "@metro/common";
@@ -18,7 +18,7 @@ import { ComponentProps } from "react";
 import { View } from "react-native";
 
 import { UnifiedPluginModel } from "./models";
-import unifyBunnyPlugin from "./models/bunny";
+import unifyZancordPlugin from "./models/bunny";
 import unifyVdPlugin from "./models/vendetta";
 
 const { openAlert } = lazyDestructure(() => findByProps("openAlert", "dismissAlert"));
@@ -64,12 +64,12 @@ export default function Plugins() {
             useObservable([pluginSettings]);
 
             const vdPlugins = Object.values(VdPluginManager.plugins).map(unifyVdPlugin);
-            const bnPlugins = [...registeredPlugins.values()].filter(p => isPluginInstalled(p.id) && !isCorePlugin(p.id)).map(unifyBunnyPlugin);
+            const bnPlugins = [...registeredPlugins.values()].filter(p => isPluginInstalled(p.id) && !isCorePlugin(p.id)).map(unifyZancordPlugin);
 
             return [...vdPlugins, ...bnPlugins];
         }}
         ListHeaderComponent={() => {
-            const unproxiedPlugins = Object.values(VdPluginManager.plugins).filter(p => !p.id.startsWith(VD_PROXY_PREFIX) && !p.id.startsWith(BUNNY_PROXY_PREFIX));
+            const unproxiedPlugins = Object.values(VdPluginManager.plugins).filter(p => !p.id.startsWith(VD_PROXY_PREFIX) && !p.id.startsWith(ZANCORD_PROXY_PREFIX));
             if (!unproxiedPlugins.length) return null;
 
             return <View style={{ marginVertical: 12, marginHorizontal: 10 }}>
@@ -88,7 +88,7 @@ export default function Plugins() {
                                 icon={findAssetId("CircleInformationIcon-primary")}
                                 style={{ marginLeft: 8 }}
                                 onPress={() => {
-                                    navigation.push("BUNNY_CUSTOM_PAGE", {
+                                    navigation.push("ZANCORD_CUSTOM_PAGE", {
                                         title: "Unproxied Plugins",
                                         render: () => {
                                             return <FlashList
@@ -114,7 +114,7 @@ export default function Plugins() {
                 text="Browse Plugins"
                 icon={findAssetId("CompassIcon")}
                 onPress={() => {
-                    navigation.push("BUNNY_CUSTOM_PAGE", {
+                    navigation.push("ZANCORD_CUSTOM_PAGE", {
                         title: "Plugin Browser",
                         render: React.lazy(() => import("../PluginBrowser")),
                     });
@@ -125,8 +125,8 @@ export default function Plugins() {
         installAction={{
             label: "Install a plugin",
             fetchFn: async (url: string) => {
-                if (!url.startsWith(VD_PROXY_PREFIX) && !url.startsWith(BUNNY_PROXY_PREFIX) && !settings.developerSettings) {
-                    openAlert("bunny-plugin-unproxied-confirmation", <AlertModal
+                if (!url.startsWith(VD_PROXY_PREFIX) && !url.startsWith(ZANCORD_PROXY_PREFIX) && !settings.developerSettings) {
+                    openAlert("zancord-plugin-unproxied-confirmation", <AlertModal
                         title="Hold On!"
                         content="You're trying to install a plugin from an unproxied external source. This means you're trusting the creator to run their code in this app without your knowledge. Are you sure you want to continue?"
                         extraContent={<Card><Text variant="text-md/bold">{url}</Text></Card>}
@@ -134,7 +134,7 @@ export default function Plugins() {
                             <AlertActionButton text="Continue" variant="primary" onPress={() => {
                                 VdPluginManager.installPlugin(url)
                                     .then(() => showToast(Strings.TOASTS_INSTALLED_PLUGIN, findAssetId("DownloadIcon")))
-                                    .catch(e => openAlert("bunny-plugin-install-failed", <AlertModal
+                                    .catch(e => openAlert("zancord-plugin-install-failed", <AlertModal
                                         title="Install Failed"
                                         content={`Unable to install plugin from '${url}':`}
                                         extraContent={<Card><Text variant="text-md/normal">{e instanceof Error ? e.message : String(e)}</Text></Card>}

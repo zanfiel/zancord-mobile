@@ -4,9 +4,9 @@ import { removeCacheFile } from "./fs";
 // @ts-ignore
 const pyonLoaderIdentity = globalThis.__PYON_LOADER__;
 // @ts-ignore
-const vendettaLoaderIdentity = globalThis.__vendetta_loader;
+const zancordLoaderIdentity = globalThis.__vendetta_loader;
 
-export interface VendettaLoaderIdentity {
+export interface ZancordLoaderIdentity {
     name: string;
     features: {
         loaderConfig?: boolean;
@@ -20,16 +20,16 @@ export interface VendettaLoaderIdentity {
     };
 }
 
-export function isVendettaLoader() {
-    return vendettaLoaderIdentity != null;
+export function isZancordLoader() {
+    return zancordLoaderIdentity != null;
 }
 
 export function isPyonLoader() {
     return pyonLoaderIdentity != null;
 }
 
-function polyfillVendettaLoaderIdentity() {
-    if (!isPyonLoader() || isVendettaLoader()) return null;
+function polyfillZancordLoaderIdentity() {
+    if (!isPyonLoader() || isZancordLoader()) return null;
 
     const loader = {
         name: pyonLoaderIdentity.loaderName,
@@ -71,31 +71,31 @@ function polyfillVendettaLoaderIdentity() {
         configurable: true
     });
 
-    return loader as VendettaLoaderIdentity;
+    return loader as ZancordLoaderIdentity;
 }
 
 export function getLoaderIdentity() {
     if (isPyonLoader()) {
         return pyonLoaderIdentity;
-    } else if (isVendettaLoader()) {
-        return getVendettaLoaderIdentity();
+    } else if (isZancordLoader()) {
+        return getZancordLoaderIdentity();
     }
 
     return null;
 }
 
-export function getVendettaLoaderIdentity(): VendettaLoaderIdentity | null {
+export function getZancordLoaderIdentity(): ZancordLoaderIdentity | null {
     // @ts-ignore
     if (globalThis.__vendetta_loader) return globalThis.__vendetta_loader;
-    return polyfillVendettaLoaderIdentity();
+    return polyfillZancordLoaderIdentity();
 }
 
 // add to __vendetta_loader anyway
-getVendettaLoaderIdentity();
+getZancordLoaderIdentity();
 
 export function getLoaderName() {
     if (isPyonLoader()) return pyonLoaderIdentity.loaderName;
-    else if (isVendettaLoader()) return vendettaLoaderIdentity.name;
+    else if (isZancordLoader()) return zancordLoaderIdentity.name;
 
     return "Unknown";
 }
@@ -108,8 +108,8 @@ export function getLoaderVersion(): string | null {
 export function isLoaderConfigSupported() {
     if (isPyonLoader()) {
         return true;
-    } else if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.loaderConfig;
+    } else if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.loaderConfig;
     }
 
     return false;
@@ -118,8 +118,8 @@ export function isLoaderConfigSupported() {
 export function isThemeSupported() {
     if (isPyonLoader()) {
         return pyonLoaderIdentity.hasThemeSupport;
-    } else if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.themes != null;
+    } else if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.themes != null;
     }
 
     return false;
@@ -128,8 +128,8 @@ export function isThemeSupported() {
 export function getStoredTheme(): VdThemeInfo | null {
     if (isPyonLoader()) {
         return pyonLoaderIdentity.storedTheme;
-    } else if (isVendettaLoader()) {
-        const themeProp = vendettaLoaderIdentity!!.features.themes?.prop;
+    } else if (isZancordLoader()) {
+        const themeProp = zancordLoaderIdentity!!.features.themes?.prop;
         if (!themeProp) return null;
         // @ts-ignore
         return globalThis[themeProp] || null;
@@ -140,9 +140,9 @@ export function getStoredTheme(): VdThemeInfo | null {
 
 export function getThemeFilePath() {
     if (isPyonLoader()) {
-        return "pyoncord/current-theme.json";
-    } else if (isVendettaLoader()) {
-        return "vendetta_theme.json";
+        return "zancord/current-theme.json";
+    } else if (isZancordLoader()) {
+        return "zancord_theme.json";
     }
 
     return null;
@@ -152,8 +152,8 @@ export function isReactDevToolsPreloaded() {
     if (isPyonLoader()) {
         return Boolean(window.__REACT_DEVTOOLS__);
     }
-    if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.devtools != null;
+    if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.devtools != null;
     }
 
     return false;
@@ -163,12 +163,12 @@ export function getReactDevToolsProp(): string | null {
     if (!isReactDevToolsPreloaded()) return null;
 
     if (isPyonLoader()) {
-        window.__pyoncord_rdt = window.__REACT_DEVTOOLS__.exports;
-        return "__pyoncord_rdt";
+        window.__zancord_rdt = window.__REACT_DEVTOOLS__.exports;
+        return "__zancord_rdt";
     }
 
-    if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.devtools!!.prop;
+    if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.devtools!!.prop;
     }
 
     return null;
@@ -180,8 +180,8 @@ export function getReactDevToolsVersion() {
     if (isPyonLoader()) {
         return window.__REACT_DEVTOOLS__.version || null;
     }
-    if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.devtools!!.version;
+    if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.devtools!!.version;
     }
 
     return null;
@@ -189,8 +189,8 @@ export function getReactDevToolsVersion() {
 
 export function isSysColorsSupported() {
     if (isPyonLoader()) return pyonLoaderIdentity.isSysColorsSupported;
-    else if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.syscolors != null;
+    else if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.syscolors != null;
     }
 
     return false;
@@ -200,8 +200,8 @@ export function getSysColors() {
     if (!isSysColorsSupported()) return null;
     if (isPyonLoader()) {
         return pyonLoaderIdentity.sysColors;
-    } else if (isVendettaLoader()) {
-        return vendettaLoaderIdentity!!.features.syscolors!!.prop;
+    } else if (isZancordLoader()) {
+        return zancordLoaderIdentity!!.features.syscolors!!.prop;
     }
 
     return null;
@@ -209,9 +209,9 @@ export function getSysColors() {
 
 export function getLoaderConfigPath() {
     if (isPyonLoader()) {
-        return "pyoncord/loader.json";
-    } else if (isVendettaLoader()) {
-        return "vendetta_loader.json";
+        return "zancord/loader.json";
+    } else if (isZancordLoader()) {
+        return "zancord_loader.json";
     }
 
     return "loader.json";

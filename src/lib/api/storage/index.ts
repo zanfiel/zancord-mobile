@@ -3,8 +3,8 @@ import { Observable, ObserverOptions } from "@gullerya/object-observer";
 import { fileExists, readFile, removeFile, writeFile } from "@lib/api/native/fs";
 import { debounce } from "es-toolkit";
 
-const storageInitErrorSymbol = Symbol.for("bunny.storage.initError");
-const storagePromiseSymbol = Symbol.for("bunny.storage.promise");
+const storageInitErrorSymbol = Symbol.for("zancord.storage.initError");
+const storagePromiseSymbol = Symbol.for("zancord.storage.promise");
 
 const _loadedStorage = {} as Record<string, any>;
 
@@ -74,7 +74,7 @@ export function createStorageAndCallback<T extends object = {}>(
     const callback = (data: any) => {
         const proxy = new Proxy(Observable.from(data), {
             get(target, prop, receiver) {
-                if (prop === Symbol.for("vendetta.storage.emitter")) {
+                if (prop === Symbol.for("zancord.storage.emitter")) {
                     if (emitter) return emitter;
                     emitter = new Emitter();
 

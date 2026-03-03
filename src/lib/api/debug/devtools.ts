@@ -1,4 +1,4 @@
-//! Adapted from https://github.com/revenge-mod/revenge-bundle-next/blob/cb3b12f2eedd46c29d289d578502561c9b56e30c/src/plugins/start/developer-kit/devtools.ts
+//! Adapted from https://github.com/zanfiel/zancord-mobile/blob/cb3b12f2eedd46c29d289d578502561c9b56e30c/src/plugins/start/developer-kit/devtools.ts
 
 import { DevToolsClient } from "@revenge-mod/devtools-client";
 import { instead } from "../patcher";
@@ -61,7 +61,7 @@ export function connectDt(url: string, quiet?: boolean) {
 
     client.connect(
         `ws://${url}`,
-        `${info.discord.version} (${info.bunny.loader.name}-${info.bunny.loader.version})`,
+        `${info.discord.version} (${info.zancord.loader.name}-${info.zancord.loader.version})`,
     );
 
     const ws = client.ws!;

@@ -36,22 +36,22 @@ export default async () => {
     );
 
     // Assign window object
-    window.bunny = lib;
+    window.zancord = lib;
 
     // Start debugger
     initDebugger();
 
-    // Once done, load Vendetta plugins
+    // Once done, load legacy plugins
     VdPluginManager.initPlugins()
         .then(u => lib.unload.push(u))
-        .catch(() => alert("Failed to initialize Vendetta plugins"));
+        .catch(() => alert("Failed to initialize legacy plugins"));
 
-    // And then, load Bunny plugins
+    // And then, load Zancord plugins
     initPlugins();
 
     // Update the fonts
     updateFonts();
 
     // We good :)
-    logger.log("Revenge is ready!");
+    logger.log("Zancord is ready!");
 };

@@ -47,7 +47,7 @@ function guessFontName(urls: string[]) {
     return shortest?.replace(/-[A-Za-z]*$/, "") || null;
 }
 
-function RevengeFontsExtractor({ fonts, setName }: {
+function ZancordFontsExtractor({ fonts, setName }: {
     fonts: Record<string, string>;
     setName: (name: string) => void;
 }) {
@@ -288,7 +288,7 @@ export default function FontEditor(props: {
                         label={Strings.LABEL_EXTRACT_FONTS_FROM_THEME}
                         subLabel={Strings.DESC_EXTRACT_FONTS_FROM_THEME}
                         icon={<TableRow.Icon source={findAssetId("HammerIcon")} />}
-                        onPress={() => promptActionSheet(RevengeFontsExtractor, fontEntries, { setName })}
+                        onPress={() => promptActionSheet(ZancordFontsExtractor, fontEntries, { setName })}
                     />}
                     <TableRow
                         label={"Import font entries from a link"}

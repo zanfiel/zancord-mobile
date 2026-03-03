@@ -21,13 +21,13 @@ export interface LoaderConfig {
     loadReactDevTools: boolean;
 }
 
-export const settings = wrapSync(createStorage<Settings>(createMMKVBackend("VENDETTA_SETTINGS")));
+export const settings = wrapSync(createStorage<Settings>(createMMKVBackend("ZANCORD_SETTINGS")));
 
 export const loaderConfig = wrapSync(createStorage<LoaderConfig>(
     createFileBackend(getLoaderConfigPath(), {
         customLoadUrl: {
             enabled: false,
-            url: "http://localhost:4040/revenge.js"
+            url: "http://localhost:4040/zancord.js"
         }
     })
 ));

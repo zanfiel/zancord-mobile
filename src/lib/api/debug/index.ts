@@ -2,7 +2,7 @@ import { getThemeFromLoader, selectTheme, themes } from "@lib/addons/themes";
 import { getLoaderName, getLoaderVersion, isReactDevToolsPreloaded, isThemeSupported } from "@lib/api/native/loader";
 import { BundleUpdaterManager, NativeClientInfoModule, NativeDeviceModule } from "@lib/api/native/modules";
 import { settings } from "@lib/api/settings";
-import { version } from "bunny-build-info";
+import { version } from "zancord-build-info";
 import { Platform, type PlatformConstants } from "react-native";
 import { connectDt, dtConnected } from "./devtools";
 import { connectRdt, rdtConnected } from "./react";
@@ -69,13 +69,13 @@ export function getDebugInfo() {
 
     return {
         /**
-         * @deprecated use `bunny` field
+         * @deprecated use `zancord` field
          * */
         vendetta: {
             version: versionHash.split("-")[0],
             loader: getLoaderName(),
         },
-        bunny: {
+        zancord: {
             version: versionHash,
             loader: {
                 name: getLoaderName(),

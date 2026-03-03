@@ -1,12 +1,21 @@
 {
-    "name": "@revenge-mod/revenge",
+    "name": "zancord-mobile",
+    "description": "Zancord - Discord mobile mod",
     "exports": {
         "types": "./dist/types/index.d.ts"
     },
     "author": {
-        "name": "Revenge Team",
-        "url": "https://github.com/revenge-mod"
+        "name": "zanverse",
+        "url": "https://github.com/zanfiel"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zanfiel/zancord-mobile"
+    },
+    "bugs": {
+        "url": "https://github.com/zanfiel/zancord-mobile/issues"
+    },
+    "homepage": "https://github.com/zanfiel/zancord-mobile#readme",
     "scripts": {
         "build": "node scripts/build.mjs",
         "serve": "node scripts/serve.mjs",

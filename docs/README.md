@@ -1,13 +1,13 @@
-# 👊 Revenge
+# Zancord
 
-This documentation explains how to use [Revenge](https://github.com/revenge-mod/revenge-bundle).
+This documentation explains how to use [Zancord](https://github.com/zanfiel/zancord-mobile).
 
-## 📖 Table of contents
+## Table of contents
 
 TODO.
 
-## ⏭️ Start here
+## Start here
 
-The next page will tell you about the prerequisites for using Revenge.
+The next page will tell you about the prerequisites for using Zancord.
 
-Continue: [💼 Prerequisites](0_prerequisites.md)
+Continue: [Prerequisites](0_prerequisites.md)

@@ -1,6 +1,6 @@
 import { isSafeMode, toggleSafeMode } from "@core/debug/safeMode";
 import { Strings } from "@core/i18n";
-import { PyoncordIcon } from "@core/ui/settings";
+import { ZancordIcon } from "@core/ui/settings";
 import About from "@core/ui/settings/pages/General/About";
 import { useProxy } from "@core/vendetta/storage";
 import { findAssetId } from "@lib/api/assets";
@@ -24,9 +24,9 @@ export default function General() {
             <Stack style={{ paddingVertical: 24, paddingHorizontal: 12 }} spacing={24}>
                 <TableRowGroup title={Strings.INFO}>
                     <TableRow
-                        label={Strings.BUNNY}
-                        icon={<TableRow.Icon source={{ uri: PyoncordIcon }} />}
-                        trailing={<TableRow.TrailingText text={debugInfo.bunny.version} />}
+                        label={Strings.ZANCORD}
+                        icon={<TableRow.Icon source={{ uri: ZancordIcon }} />}
+                        trailing={<TableRow.TrailingText text={debugInfo.zancord.version} />}
                     />
                     <TableRow
                         label={"Discord"}
@@ -37,7 +37,7 @@ export default function General() {
                         arrow
                         label={Strings.ABOUT}
                         icon={<TableRow.Icon source={findAssetId("CircleInformationIcon-primary")!} />}
-                        onPress={() => navigation.push("BUNNY_CUSTOM_PAGE", {
+                        onPress={() => navigation.push("ZANCORD_CUSTOM_PAGE", {
                             title: Strings.ABOUT,
                             render: () => <About />,
                         })}
@@ -71,7 +71,7 @@ export default function General() {
                         onValueChange={(to: boolean) => {
                             toggleSafeMode({ to, reload: false });
                             openAlert(
-                                "bunny-reload-safe-mode",
+                                "zancord-reload-safe-mode",
                                 <AlertModal
                                     title="Reload now?"
                                     content={!to ? "All add-ons will load normally." : "All add-ons will be temporarily disabled upon reload."}

@@ -43,17 +43,17 @@ export function patchTabsUI(unpatches: (() => void | boolean)[]) {
             ...rendererConfigValue,
             VendettaCustomPage: {
                 type: "route",
-                title: () => Strings.BUNNY,
+                title: () => Strings.ZANCORD,
                 screen: {
                     route: "VendettaCustomPage",
                     getComponent: () => CustomPageRenderer
                 }
             },
-            BUNNY_CUSTOM_PAGE: {
+            ZANCORD_CUSTOM_PAGE: {
                 type: "route",
-                title: () => Strings.BUNNY,
+                title: () => Strings.ZANCORD,
                 screen: {
-                    route: "BUNNY_CUSTOM_PAGE",
+                    route: "ZANCORD_CUSTOM_PAGE",
                     getComponent: () => CustomPageRenderer
                 }
             },

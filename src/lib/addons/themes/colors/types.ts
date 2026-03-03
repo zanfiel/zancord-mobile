@@ -1,4 +1,4 @@
-import { Author, BunnyManifest } from "@lib/addons/types";
+import { Author, ZancordManifest } from "@lib/addons/types";
 
 interface SemanticReference {
     type: "color" | "raw";
@@ -12,7 +12,7 @@ interface BackgroundDefinition {
     opacity?: number;
 }
 
-export interface BunnyColorManifest extends BunnyManifest {
+export interface ZancordColorManifest extends ZancordManifest {
     type: "color";
     spec: 3;
     main: {
@@ -23,7 +23,7 @@ export interface BunnyColorManifest extends BunnyManifest {
     }
 }
 
-export interface VendettaThemeManifest {
+export interface ZancordLegacyThemeManifest {
     spec: 2;
     name: string;
     description?: string;
@@ -49,4 +49,4 @@ export interface InternalColorDefinition {
     background?: BackgroundDefinition;
 }
 
-export type ColorManifest = BunnyColorManifest | VendettaThemeManifest;
+export type ColorManifest = ZancordColorManifest | ZancordLegacyThemeManifest;

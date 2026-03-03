@@ -5,7 +5,7 @@ import * as themes from "@lib/addons/themes";
 import * as assets from "@lib/api/assets";
 import * as commands from "@lib/api/commands";
 import * as debug from "@lib/api/debug";
-import { getVendettaLoaderIdentity, isPyonLoader } from "@lib/api/native/loader";
+import { getZancordLoaderIdentity, isPyonLoader } from "@lib/api/native/loader";
 import patcher from "@lib/api/patcher";
 import { loaderConfig, settings } from "@lib/api/settings";
 import * as utils from "@lib/utils";
@@ -27,14 +27,14 @@ import { VdPluginManager, VendettaPlugin } from "./plugins";
 
 export async function createVdPluginObject(plugin: VendettaPlugin) {
     return {
-        ...window.vendetta,
+        ...window.zancord_vendetta,
         plugin: {
             id: plugin.id,
             manifest: plugin.manifest,
             // Wrapping this with wrapSync is NOT an option.
             storage: await createStorage<Record<string, any>>(storage.createMMKVBackend(plugin.id)),
         },
-        logger: new LoggerClass(`Revenge » ${plugin.manifest.name}`),
+        logger: new LoggerClass(`Zancord » ${plugin.manifest.name}`),
     };
 }
 
@@ -48,7 +48,7 @@ export const initVendettaObject = (): any => {
         };
     };
 
-    const api = window.vendetta = {
+    const api = window.zancord_vendetta = {
         patcher: {
             before: patcher.before,
             after: patcher.after,
@@ -127,7 +127,7 @@ export const initVendettaObject = (): any => {
         },
         constants: {
             DISCORD_SERVER: "https://discord.gg/n9QQ4XhhJP",
-            GITHUB: "https://github.com/vendetta-mod",
+            GITHUB: "https://github.com/zanfiel",
             PROXY_PREFIX: "https://vd-plugins.github.io/proxy",
             HTTP_REGEX: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/,
             HTTP_REGEX_MULTI: /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&//=]*)/g,
@@ -227,7 +227,7 @@ export const initVendettaObject = (): any => {
             createFileBackend: (file: string) => {
                 // Redirect path to vendetta_theme.json
                 if (isPyonLoader() && file === "vendetta_theme.json") {
-                    file = "pyoncord/current-theme.json";
+                    file = "zancord/current-theme.json";
                 }
 
                 return storage.createFileBackend(file);
@@ -235,7 +235,7 @@ export const initVendettaObject = (): any => {
         },
         settings,
         loader: {
-            identity: getVendettaLoaderIdentity() ?? void 0,
+            identity: getZancordLoaderIdentity() ?? void 0,
             config: loaderConfig,
         },
         logger: {
@@ -249,7 +249,7 @@ export const initVendettaObject = (): any => {
         },
         version: debug.versionHash,
         unload: () => {
-            delete window.vendetta;
+            delete window.zancord_vendetta;
         },
     };
 

@@ -1,9 +1,9 @@
 export const DISCORD_SERVER = "https://discord.com/invite/ddcQf3s2Uq";
-export const GITHUB = "https://github.com/revenge-mod";
+export const GITHUB = "https://github.com/zanfiel";
 export const HTTP_REGEX = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
 export const HTTP_REGEX_MULTI = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&//=]*)/g;
 
-export const BUNNY_PROXY_PREFIX = "https://bn-plugins.github.io/vd-proxy";
+export const ZANCORD_PROXY_PREFIX = "https://bn-plugins.github.io/vd-proxy";
 
 export const OFFICIAL_PLUGINS_REPO_URL = "https://bn-plugins.github.io/dist/repo.json";
 

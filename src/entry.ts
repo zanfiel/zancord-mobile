@@ -1,11 +1,11 @@
 import type { Metro } from "@metro/types";
-import { version } from "bunny-build-info";
+import { version } from "zancord-build-info";
 const { instead } = require("spitroast");
 
 // @ts-ignore - window is defined later in the bundle, so we assign it early
 globalThis.window = globalThis;
 
-async function initializeRevenge() {
+async function initializeZancord() {
     try {
         // Make 'freeze' and 'seal' do nothing
         Object.freeze = Object.seal = Object;
@@ -18,9 +18,9 @@ async function initializeRevenge() {
 
         console.log(stack ?? e?.toString?.() ?? e);
         alert([
-            "Failed to load Revenge!\n",
+            "Failed to load Zancord!\n",
             `Build Number: ${ClientInfoManager.getConstants().Build}`,
-            `Revenge: ${version}`,
+            `Zancord: ${version}`,
             stack || e?.toString?.(),
         ].join("\n"));
     }
@@ -31,7 +31,7 @@ if (typeof window.__r === "undefined") {
     var _requireFunc: any;
 
     // Calls from the native side are deferred until the index.ts(x) is loaded
-    // Revenge delays the execution of index.ts(x) because Revenge's initialization is asynchronous
+    // Zancord delays the execution of index.ts(x) because Zancord's initialization is asynchronous
     interface DeferredQueue {
         object: any;
         method: string;
@@ -84,7 +84,7 @@ if (typeof window.__r === "undefined") {
             deferMethodExecution(
                 batchedBridge,
                 "callFunctionReturnFlushedQueue",
-                // If the call is to AppRegistry, we want to defer it because it is not yet registered (Revenge delays it)
+                // If the call is to AppRegistry, we want to defer it because it is not yet registered (Zancord delays it)
                 // Same goes to the non-callable modules, which are not registered yet, so we ensure that only registered ones can get through
                 (...args) => args[0] === "AppRegistry" || !batchedBridge.getCallableModule(args[0]),
                 ({ args }) => {
@@ -102,7 +102,7 @@ if (typeof window.__r === "undefined") {
         }
 
         const startDiscord = async () => {
-            await initializeRevenge();
+            await initializeZancord();
             
             for (const unpatch of unpatches) unpatch();
             unpatches.length = 0;
@@ -143,7 +143,7 @@ if (typeof window.__r === "undefined") {
         }
     });
 } else {
-    // It is too late to late to hook __r, so we just initialize Revenge here
-    // Likely because of using the legacy loader (from Vendetta)
-    initializeRevenge();
+    // It is too late to late to hook __r, so we just initialize Zancord here
+    // Likely because of using the legacy loader
+    initializeZancord();
 }

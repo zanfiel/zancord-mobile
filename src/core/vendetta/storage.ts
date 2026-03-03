@@ -2,8 +2,8 @@ import { Emitter, EmitterEvent, EmitterListener, EmitterListenerData } from "@co
 import { NativeCacheModule, NativeFileModule } from "@lib/api/native/modules";
 import { Platform } from "react-native";
 
-const emitterSymbol = Symbol.for("vendetta.storage.emitter");
-const syncAwaitSymbol = Symbol.for("vendetta.storage.accessor");
+const emitterSymbol = Symbol.for("zancord.storage.emitter");
+const syncAwaitSymbol = Symbol.for("zancord.storage.accessor");
 
 export function createProxy(target: any = {}): { proxy: any; emitter: Emitter; } {
     const emitter = new Emitter();

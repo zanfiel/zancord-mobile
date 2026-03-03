@@ -16,8 +16,8 @@ export default () => <ApplicationCommand>{
     execute([ephemeral], ctx) {
         const info = getDebugInfo();
         const content = [
-            "**Revenge Debug Info**",
-            `> Revenge: ${info.bunny.version} (${info.bunny.loader.name} ${info.bunny.loader.version})`,
+            "**Zancord Debug Info**",
+            `> Zancord: ${info.zancord.version} (${info.zancord.loader.name} ${info.zancord.loader.version})`,
             `> Discord: ${info.discord.version} (${info.discord.build})`,
             `> React: ${info.react.version} (RN ${info.react.nativeVersion})`,
             `> Hermes: ${info.hermes.version} (bcv${info.hermes.bytecodeVersion})`,

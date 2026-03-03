@@ -2,7 +2,7 @@ import { awaitStorage, createMMKVBackend, createStorage, purgeStorage, wrapSync 
 import { Author } from "@lib/addons/types";
 import { settings } from "@lib/api/settings";
 import { safeFetch } from "@lib/utils";
-import { BUNNY_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
+import { ZANCORD_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
 import { logger,LoggerClass } from "@lib/utils/logger";
 
 type EvaledPlugin = {
@@ -32,7 +32,7 @@ export interface VendettaPlugin {
     js: string;
 }
 
-const plugins = wrapSync(createStorage<Record<string, VendettaPlugin>>(createMMKVBackend("VENDETTA_PLUGINS")));
+const plugins = wrapSync(createStorage<Record<string, VendettaPlugin>>(createMMKVBackend("ZANCORD_PLUGINS")));
 const pluginInstance: Record<string, EvaledPlugin> = {};
 
 export const VdPluginManager = {
@@ -40,8 +40,8 @@ export const VdPluginManager = {
     async pluginFetch(url: string) {
         if (url.startsWith(VD_PROXY_PREFIX)) {
             url = url
-                .replace("https://bunny-mod.github.io/plugins-proxy", BUNNY_PROXY_PREFIX)
-                .replace(VD_PROXY_PREFIX, BUNNY_PROXY_PREFIX);
+                .replace("https://bunny-mod.github.io/plugins-proxy", ZANCORD_PROXY_PREFIX)
+                .replace(VD_PROXY_PREFIX, ZANCORD_PROXY_PREFIX);
         }
 
         return await safeFetch(url, { cache: "no-store" });
@@ -90,19 +90,19 @@ export const VdPluginManager = {
      * @internal
      */
     async evalPlugin(plugin: VendettaPlugin) {
-        const vendettaForPlugins = {
-            ...window.vendetta,
+        const zancordForPlugins = {
+            ...window.zancord_vendetta,
             plugin: {
                 id: plugin.id,
                 manifest: plugin.manifest,
                 // Wrapping this with wrapSync is NOT an option.
                 storage: await createStorage<Record<string, any>>(createMMKVBackend(plugin.id)),
             },
-            logger: new LoggerClass(`Revenge » ${plugin.manifest.name}`),
+            logger: new LoggerClass(`Zancord » ${plugin.manifest.name}`),
         };
         const pluginString = `vendetta=>{return ${plugin.js}}\n//# sourceURL=${plugin.id}`;
 
-        const raw = (0, eval)(pluginString)(vendettaForPlugins);
+        const raw = (0, eval)(pluginString)(zancordForPlugins);
         const ret = typeof raw === "function" ? raw() : raw;
         return ret?.default ?? ret ?? {};
     },
